@@ -1,0 +1,14 @@
+BoldAsFont=yes
+Transparency=high
+Font=MeityoKeConConsolas
+Locale=ja_JP
+Charset=SJIS
+Columns=149
+Rows=56
+FontHeight=10
+OpaqueWhenFocused=no
+AllowBlinking=yes
+Term=xterm
+BackgroundColour=43,36,36
+ForegroundColour=232,232,232
+CursorType=block
