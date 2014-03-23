@@ -1,0 +1,14 @@
+[user]
+    name = Hayato Yoneda
+    email = mc.walnut.04@gmail.com
+[core]
+    autocrlf = false
+[alias]
+    st = status
+    co = checkout
+    df = diff
+    ds = diff --staged
+    ci = commit
+    ci-amend = commit --amend
+    ci-amend-no-edit = commit --amend --no-edit
+    graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
