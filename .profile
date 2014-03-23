@@ -13,3 +13,5 @@ fi
 if [ -n "${HOME}/usr/local/bin" ] ; then
 	export PATH=${HOME}/usr/local/bin:$PATH
 fi
+
+alias vi='vim'
