@@ -7,7 +7,9 @@ Dropboxにdotfile用のdirectoryを作りその中にこのスクリプトを入
 Ruby1.9用 (JRuby --1.9 でも動作可能)
 =end
 
-puts "このスクリプトはDropbox/DotFilesの中で実行してください。"
+Dir::chdir(File.dirname($0))
+
+puts "このスクリプトはホームディレクトリにシンボリックリンクを貼ります。"
 print "実行しますか？[y/n]:"
 a = STDIN.gets().chomp
 unless a == "y" or a == "yes" then
@@ -15,7 +17,7 @@ puts "exit."
 exit 0
 end
 
-dirfiles = `ls -a`
+dirfiles = `find . -maxdepth 1 -name ".*" ! -name "." ! -name ".git" | sed 's!^./!!'`
 dotfiles = Array.new
 
 dirfiles.each_line do |line|

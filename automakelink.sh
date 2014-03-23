@@ -1,6 +1,8 @@
 #!/bin/sh
 
-echo "このスクリプトはDropbox/DotFilesの中で実行してください。"
+cd `dirname $0`
+
+echo "このスクリプトはホームディレクトリにシンボリックリンクを貼ります。"
 echo -n "実行しますか?[y/n]:"
 read ANS
 
@@ -13,8 +15,10 @@ if [ ! $ANS -o $ANS != 'y' -a $ANS != 'yes' ]; then
 	exit 0
 fi
 
-dotfiles=`ls -Fa | grep -v / | grep "^\."`
-directories=`ls -Fa | grep / | grep -v "^\./$" | grep -v "^\../$"`
+source ./automakelink_common.sh
+
+dotfiles=`dot_files`
+directories=`dot_directories`
 
 echo "以下のファイルとディレクトリをHOME以下にリンクします"
 
