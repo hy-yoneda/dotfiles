@@ -16,7 +16,7 @@ alias h='history'
 ## not distinguish between lower case and upper case
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' menu select=1
-zstyle ':completion:*:*:git:*' script ~/git-completion.bash
+#zstyle ':completion:*:*:git:*' script ~/git-completion.bash
 fpath=(~/.zsh/completion $fpath)
 
 ## git-prompt
@@ -75,108 +75,108 @@ bindkey '^h'    zaw-history
 # ------------------------------
 ### Ls Color ###
 # 色の設定
-export LSCOLORS=Exfxcxdxbxegedabagacad
+#export LSCOLORS=Exfxcxdxbxegedabagacad
 # 補完時の色の設定
-export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+#export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 # ZLS_COLORSとは？
-export ZLS_COLORS=$LS_COLORS
+#export ZLS_COLORS=$LS_COLORS
 # lsコマンド時、自動で色がつく(ls -Gのようなもの？)
-export CLICOLOR=true
+#export CLICOLOR=true
 # 補完候補に色を付ける
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 ### Prompt ###
 # プロンプトに色を付ける
-autoload -U colors; colors
+#autoload -U colors; colors
 
 # gitのブランチ名と変更状況をプロンプトに表示する
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git svn
-zstyle ':vcs_info:*' formats '[%b]'
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
-zstyle ':vcs_info:bzr:*' use-simple true
-
-autoload -Uz is-at-least
-if is-at-least 4.3.10; then
-	autoload -Uz add-zsh-hook
-	#autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/nul
-	zstyle ':vcs_info:git:*' check-for-changes false
-	zstyle ':vcs_info:git:*' stagedstr "+"
-	zstyle ':vcs_info:git:*' unstagedstr "-"
-	zstyle ':vcs_info:git:*' formats '[%b[%c%u]]'
-	zstyle ':vcs_info:git:*' actionformats '[%b|%a[%c%u]]'
-
-	# VCSの更新時にPROMPTを自動更新する
-	local _pre=''
-	function _preexec() {
-		_pre="$1"
-	}
-
-	function _update_vcs_info_msg() {
-		_r=$?
-
-		case "${_pre}" in
-			cd*|svn*|git*)
-
-			psvar=()
-			LANG=en_US.UTF-8 vcs_info
-			[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-			;;
-		esac
-
-		return ${_r}
-	}
-
-	add-zsh-hook -Uz preexec _preexec
-	add-zsh-hook -Uz precmd _update_vcs_info_msg
-fi
-
-# 一般ユーザ時
-tmp_prompt="%{${fg[cyan]}%}%n%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{${reset_color}%}"
-tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
-tmp_rprompt="%1(v|%B%F{green}%1v%f%b|) %B%F{yellow}[%30<..<%~]%f%b%{${reset_color}%}"
+#autoload -Uz vcs_info
+#zstyle ':vcs_info:*' enable git svn
+#zstyle ':vcs_info:*' formats '[%b]'
+#zstyle ':vcs_info:*' actionformats '[%b|%a]'
+#zstyle ':vcs_info:(svn|bzr):*' branchformat '%b:r%r'
+#zstyle ':vcs_info:bzr:*' use-simple true
+#
+#autoload -Uz is-at-least
+#if is-at-least 4.3.10; then
+#	autoload -Uz add-zsh-hook
+#	#autoload -Uz VCS_INFO_get_data_git; VCS_INFO_get_data_git 2> /dev/nul
+#	zstyle ':vcs_info:git:*' check-for-changes false
+#	zstyle ':vcs_info:git:*' stagedstr "+"
+#	zstyle ':vcs_info:git:*' unstagedstr "-"
+#	zstyle ':vcs_info:git:*' formats '[%b[%c%u]]'
+#	zstyle ':vcs_info:git:*' actionformats '[%b|%a[%c%u]]'
+#
+#	# VCSの更新時にPROMPTを自動更新する
+#	local _pre=''
+#	function _preexec() {
+#		_pre="$1"
+#	}
+#
+#	function _update_vcs_info_msg() {
+#		_r=$?
+#
+#		case "${_pre}" in
+#			cd*|svn*|git*)
+#
+#			psvar=()
+#			LANG=en_US.UTF-8 vcs_info
+#			[[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+#			;;
+#		esac
+#
+#		return ${_r}
+#	}
+#
+#	add-zsh-hook -Uz preexec _preexec
+#	add-zsh-hook -Uz precmd _update_vcs_info_msg
+#fi
+#
+## 一般ユーザ時
+#tmp_prompt="%{${fg[cyan]}%}%n%(?.%{$fg[green]%}.%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{${reset_color}%}"
+#tmp_prompt2="%{${fg[cyan]}%}%_> %{${reset_color}%}"
+#tmp_rprompt="%1(v|%B%F{green}%1v%f%b|) %B%F{yellow}[%30<..<%~]%f%b%{${reset_color}%}"
 tmp_sprompt="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%{$fg[yellow]%}%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color}"
-#tmp_prompt_gitbr="%{${fg[magenta]}%}$(__git_ps1 '(%s) ')%{${reset_color}%}"
-
-# rootユーザ時(太字にし、アンダーバーをつける)
-if [ ${UID} -eq 0 ]; then
-  tmp_prompt="%B%U${tmp_prompt}%u%b"
-  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
-  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
-  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
-#  tmp_prompt_gitbr="%B%U${tmp_prompt_gitbr}%u%b"
-fi
-
-PROMPT=$tmp_prompt    # 通常のプロンプト
-PROMPT2=$tmp_prompt2  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
-RPROMPT="${tmp_prompt_gitbr}${tmp_rprompt}"  # 右側のプロンプト
+##tmp_prompt_gitbr="%{${fg[magenta]}%}$(__git_ps1 '(%s) ')%{${reset_color}%}"
+#
+## rootユーザ時(太字にし、アンダーバーをつける)
+#if [ ${UID} -eq 0 ]; then
+#  tmp_prompt="%B%U${tmp_prompt}%u%b"
+#  tmp_prompt2="%B%U${tmp_prompt2}%u%b"
+#  tmp_rprompt="%B%U${tmp_rprompt}%u%b"
+#  tmp_sprompt="%B%U${tmp_sprompt}%u%b"
+##  tmp_prompt_gitbr="%B%U${tmp_prompt_gitbr}%u%b"
+#fi
+#
+#PROMPT=$tmp_prompt    # 通常のプロンプト
+#PROMPT2=$tmp_prompt2  # セカンダリのプロンプト(コマンドが2行以上の時に表示される)
 #RPROMPT="${tmp_prompt_gitbr}${tmp_rprompt}"  # 右側のプロンプト
+##RPROMPT="${tmp_prompt_gitbr}${tmp_rprompt}"  # 右側のプロンプト
 SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
-# SSHログイン時のプロンプト
-# [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
-  #PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
-#;
-
-case "${TERM}" in
-    kterm*|xterm*)
-	precmd() {
-            echo -ne "\033]0;${USER}@${HOST}\007"
-	}
-	;;
-    screen*)
-        if [ "$OS" != "Windows_NT" ]
-        then
-            preexec() {
-                mycmd=(${(s: :)${1}})
-                echo -ne "\ek$(hostname|awk 'BEGIN{FS="."}{print $1}'):#$mycmd[1]\e\\"
-            }
-            precmd() {
-                echo -ne "\ek$(hostname|awk 'BEGIN{FS="."}{print $1}'):$(basename $(pwd))\e\\"
-            }
-        fi
-        ;;
-esac
+## SSHログイン時のプロンプト
+## [ -n "${REMOTEHOST}${SSH_CONNECTION}" ] &&
+#  #PROMPT="%{${fg[white]}%}${HOST%%.*} ${PROMPT}"
+##;
+#
+#case "${TERM}" in
+#    kterm*|xterm*)
+#	precmd() {
+#            echo -ne "\033]0;${USER}@${HOST}\007"
+#	}
+#	;;
+#    screen*)
+#        if [ "$OS" != "Windows_NT" ]
+#        then
+#            preexec() {
+#                mycmd=(${(s: :)${1}})
+#                echo -ne "\ek$(hostname|awk 'BEGIN{FS="."}{print $1}'):#$mycmd[1]\e\\"
+#            }
+#            precmd() {
+#                echo -ne "\ek$(hostname|awk 'BEGIN{FS="."}{print $1}'):$(basename $(pwd))\e\\"
+#            }
+#        fi
+#        ;;
+#esac
 
 ## prioritize homebrew
 export PATH=~/bin:/usr/local/bin:$PATH
