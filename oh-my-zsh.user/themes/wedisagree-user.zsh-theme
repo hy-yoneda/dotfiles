@@ -19,22 +19,21 @@
 
 # Thanks to Steve Losh: http://stevelosh.com/blog/2009/03/candy-colored-terminal/
 
+# The prompt
+
+PROMPT="%{$fg[cyan]%}%n %(?!%{$fg[green]%}!%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{$reset_color%}"
+
+# The right-hand prompt
+
+RPROMPT='%B%F{yellow}[%50<..<%~] %f%b% ${time} %{$fg[magenta]%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)%{$reset_color%}$(git_prompt_ahead)%{$reset_color%}'
+
+# Add this at the start of RPROMPT to include rvm info showing ruby-version@gemset-name
+# %{$fg[yellow]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}
+
 # local time, color coded by last return code
 time_enabled="%(?!%{$fg[green]%}!%{$fg[blue]%})%B%*%b%{$reset_color%}"
 time_disabled="%{$fg[green]%}%B%*%b%{$reset_color%}"
 time=$time_enabled
-
-# The prompt
-
-PROMPT="%{$fg[cyan]%}%n %(?!%{$fg[green]%}!%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{$reset_color%}"
-#PROMPT="%{$fg[cyan]%}%n %{$fg[magenta]%}[%40<..<%~] %(?!%{$fg[green]%}!%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{$reset_color%}"
-
-# The right-hand prompt
-
-RPROMPT="%B%F{yellow}[%50<..<%~] %f%b% ${time} %{$fg[magenta]%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)%{$reset_color%}$(git_prompt_ahead)%{$reset_color%}"
-
-# Add this at the start of RPROMPT to include rvm info showing ruby-version@gemset-name
-# %{$fg[yellow]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%} 
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" ☁  %{$fg[red]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"

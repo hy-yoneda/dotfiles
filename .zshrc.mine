@@ -20,7 +20,7 @@ zstyle ':completion:*' menu select=1
 fpath=(~/.zsh/completion $fpath)
 
 ## git-prompt
-[ -f ~/git-prompt.sh ] && source ~/git-prompt.sh
+#[ -f ~/git-prompt.sh ] && source ~/git-prompt.sh
 
 autoload -U compinit && compinit -u
 
