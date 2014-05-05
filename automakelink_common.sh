@@ -1,9 +1,18 @@
 #!/bin/sh
 
-function dot_files {
+dot_files() {
     find . -maxdepth 1 -type f -name ".*" ! -name "." ! -name ".git*" | sed 's!^./!!'
 }
 
-function dot_directories {
+dot_directories() {
     find . -maxdepth 1 -type d -name ".*" ! -name "." ! -name ".git*" | sed 's!^./!!'
 }
+
+CMD=$1
+
+case "$CMD" in
+  "dot-files" ) dot_files ;;
+  "dot-directories" ) dot_directories ;;
+esac
+
+exit 0

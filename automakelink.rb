@@ -17,17 +17,16 @@ puts "exit."
 exit 0
 end
 
-dirfiles = `find . -maxdepth 1 -name ".*" ! -name "." ! -name ".git*" | sed 's!^./!!'`
-dotfiles = Array.new
-
-dirfiles.each_line do |line|
-dotfiles << line if line =~ /^\..+$/ and line !~ /^\.\..*/
-end
+dotfiles = `sh ./automakelink_common.sh dot-files`.split(" ")
+directories = `sh ./automakelink_common.sh dot-directories`.split(" ")
+targets = dotfiles + directories
 
 print "以下のファイルとディレクトリをHOME以下にリンクします\n\n"
-dotfiles.each do |f|
-puts f
+
+targets.each do |f|
+  puts f
 end
+
 print "\nOK?[y/n]:"
 a = STDIN.gets().chomp
 unless a == "y" or a == "yes" then
@@ -35,7 +34,7 @@ puts "exit."
 exit 0
 end
 
-dotfiles.each do |fd|
+targets.each do |fd|
 begin
 c = File.symlink(File.expand_path(fd.chomp),File.expand_path("~/#{fd.chomp}"))
 rescue Errno::EEXIST => e
