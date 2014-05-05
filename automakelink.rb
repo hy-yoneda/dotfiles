@@ -17,7 +17,7 @@ puts "exit."
 exit 0
 end
 
-dirfiles = `find . -maxdepth 1 -name ".*" ! -name "." ! -name ".git" | sed 's!^./!!'`
+dirfiles = `find . -maxdepth 1 -name ".*" ! -name "." ! -name ".git*" | sed 's!^./!!'`
 dotfiles = Array.new
 
 dirfiles.each_line do |line|
