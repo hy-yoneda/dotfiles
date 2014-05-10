@@ -14,5 +14,3 @@ case "$CMD" in
   "dot-files" ) dot_files ;;
   "dot-directories" ) dot_directories ;;
 esac
-
-exit 0
