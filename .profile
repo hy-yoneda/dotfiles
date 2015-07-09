@@ -33,4 +33,8 @@ if [ -d "${HOME}/usr/local/bin" ] ; then
 	export PATH=${HOME}/usr/local/bin:$PATH
 fi
 
+if [ -d "${HOME}/.gitscripts" ] ; then
+    export PATH=${HOME}/.gitscripts:$PATH
+fi
+
 alias vi='vim'

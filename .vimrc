@@ -1,7 +1,7 @@
 " --------------------------------------------------------------------------------------------------------
 " - * File: .vimrc
 " - * Author: itchyny
-" - * Last Change: 2014/03/06 10:25:35.
+" - * Last Change: 2014/06/16 15:11:20.
 " --------------------------------------------------------------------------------------------------------
 
 " INITIALIZE {{{
@@ -362,10 +362,10 @@ set laststatus=2 showtabline=1 statusline=%{expand('%:p:t')}\ %<[%{expand('%:p:h
 set background=dark
 if !has('gui_running') | set t_Co=256 | endif
 set encoding=utf-8 fenc=utf-8 fileencodings=utf-8,euc-jp,sjis,jis,iso-2022-jp,cp932,latin formatoptions+=mM
-set smartindent autoindent shiftwidth=2
+set smartindent autoindent shiftwidth=4
   autocmd Vimrc FileType tex,hatena setlocal nosmartindent noautoindent
   let g:tex_indent_items=0
-set textwidth=0 expandtab tabstop=2 backspace=indent,eol,start nrformats-=ocral
+set textwidth=0 expandtab tabstop=4 backspace=indent,eol,start nrformats-=ocral
   autocmd Vimrc FileType * exec 'setl ' . (search('^\t.*\n\t.*\n\t', 'n') > 0 ? 'no' : '') . 'expandtab'
 if exists('&clipboard')
   set clipboard=unnamed
