@@ -5,9 +5,9 @@ export MANPATH=/usr/local/share/man:/usr/local/man:/usr/share/man
 find-grep () { find . -type f -print | xargs grep -n --binary-files=without-match $@ }
 
 ## alias
-alias ls='ls -AFG --color=auto'
+alias ls='ls -AFG'
 alias ll='ls -lFG'
-alias la='ls -lAFG'
+alias la='ls -laAFG'
 alias df="df -h"
 alias du="du -h"
 alias screen='screen -U'
