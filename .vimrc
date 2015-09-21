@@ -31,7 +31,7 @@ else
 if has('vim_starting')
   execute 'set runtimepath+='.s:neobundle_dir
 endif
-call neobundle#rc($BUNDLE)
+call neobundle#begin($BUNDLE)
 NeoBundleFetch 'Shougo/neobundle.vim'
   nnoremap <silent> BB :<C-u>Unite neobundle/update -log -no-start-insert<CR>
 
@@ -325,6 +325,9 @@ NeoBundleLazy 'tpope/vim-markdown', {'autoload': {'filetypes': ['m4']}}
 NeoBundleLazy 'motemen/hatena-vim', {'autoload': {'filetypes': ['hatena']}}
 NeoBundleLazy 'syngan/vim-vimlint', { 'depends' : 'ynkdir/vim-vimlparser', 'autoload' : { 'functions' : 'vimlint#vimlint'}}
 endif
+
+call neobundle#end()
+
 " }}} Bundles
 
 " Setting {{{
