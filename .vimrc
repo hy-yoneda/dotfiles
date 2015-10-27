@@ -1,7 +1,7 @@
 " --------------------------------------------------------------------------------------------------------
 " - * File: .vimrc
 " - * Author: itchyny
-" - * Last Change: 2014/06/16 15:11:20.
+" - * Last Change: 2015/09/21 13:07:42.
 " --------------------------------------------------------------------------------------------------------
 
 " INITIALIZE {{{
@@ -37,16 +37,76 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Colorscheme
 NeoBundle 'itchyny/landscape.vim', {'type': 'nosync'}
-  colorscheme landscape
+  "colorscheme landscape
   let g:landscape_highlight_url = 1
   let g:landscape_highlight_todo = 1
   let g:landscape_highlight_url_filetype = {'thumbnail': 0}
 NeoBundleLazy 'xterm-color-table.vim', {'autoload': {'commands': [{'name': 'XtermColorTable'}]}}
+NeoBundle 'w0ng/vim-hybrid'
 
 " Lightline
 NeoBundle 'itchyny/lightline.vim', {'type': 'nosync'}
-NeoBundle 'itchyny/lightline-powerful', {'type': 'nosync'}
-  let g:lightline = {'colorscheme': 'landscape','mode_map':{'c': 'NORMAL'}}
+  let g:lightline = {
+          \ 'colorscheme': 'wombat',
+          \ 'mode_map': {'c': 'NORMAL'},
+          \ 'active': {
+          \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+          \ },
+          \ 'component_function': {
+          \   'modified': 'LightLineModified',
+          \   'readonly': 'LightLineReadonly',
+          \   'fugitive': 'LightLineFugitive',
+          \   'filename': 'LightLineFilename',
+          \   'fileformat': 'LightLineFileformat',
+          \   'filetype': 'LightLineFiletype',
+          \   'fileencoding': 'LightLineFileencoding',
+          \   'mode': 'LightLineMode'
+          \ }
+          \ }
+  
+  function! LightLineModified()
+    return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  endfunction
+  
+  function! LightLineReadonly()
+    return &ft !~? 'help\|vimfiler\|gundo' && &readonly ? 'x' : ''
+  endfunction
+  
+  function! LightLineFilename()
+    return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+          \ (&ft == 'vimfiler' ? vimfiler#get_status_string() :
+          \  &ft == 'unite' ? unite#get_status_string() :
+          \  &ft == 'vimshell' ? vimshell#get_status_string() :
+          \ '' != expand('%:t') ? expand('%:t') : '[No Name]') .
+          \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  endfunction
+  
+  function! LightLineFugitive()
+    try
+      if &ft !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+        return fugitive#head()
+      endif
+    catch
+    endtry
+    return ''
+  endfunction
+  
+  function! LightLineFileformat()
+    return winwidth(0) > 70 ? &fileformat : ''
+  endfunction
+  
+  function! LightLineFiletype()
+    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+  endfunction
+  
+  function! LightLineFileencoding()
+    return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  endfunction
+  
+  function! LightLineMode()
+    return winwidth(0) > 60 ? lightline#mode() : ''
+  endfunction
+
   exec 'set guifont=' . substitute('Source Code Pro for Powerline', ' ', s:iswin ? '_' : '\\ ', 'g') . (s:ismac ? ':h15' : s:iswin ?  ':h13:cANSI' : '\ 12')
   if s:iswin | set guifontwide=MS_Gothic:h11:cSHIFTJIS | endif
 
@@ -327,6 +387,14 @@ NeoBundleLazy 'syngan/vim-vimlint', { 'depends' : 'ynkdir/vim-vimlparser', 'auto
 endif
 
 call neobundle#end()
+
+let g:hybrid_use_iTerm_colors = 1
+colorscheme hybrid
+syntax on
+hi LineNr ctermbg=0 ctermfg=0
+hi CursorLineNr ctermbg=4 ctermfg=0
+set cursorline
+hi clear CursorLine
 
 " }}} Bundles
 
