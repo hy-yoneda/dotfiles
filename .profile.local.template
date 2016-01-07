@@ -1,9 +1,0 @@
-alias la='ls -a'
-alias ll='ls -l'
-alias lla='ls -la'
-alias subl='C:/Program\ Files/Sublime\ Text\ 2/sublime_text.exe'
-alias ifconfig=ipconfig
-alias start=cygstart
-alias open=start
-
-export DBOX_ROOT=~/dropbox

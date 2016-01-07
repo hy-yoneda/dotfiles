@@ -1,0 +1,48 @@
+#!/bin/sh
+
+TARGET_REMOTE='origin'
+TARGET_COMMIT='HEAD'
+TARGET_REMOTE_BRUNCH='master'
+PUSH_REMOTE_REFS=''
+
+TARGET_REMOTE=$1
+TARGET_COMMIT=$2
+TARGET_REMOTE_BRUNCH=$3
+
+if [ $# -eq 1 ]; then
+    TARGET_REMOTE='origin'
+    TARGET_COMMIT=$1
+    PUSH_REMOTE_REFS="refs/for/master"
+elif [ $# -eq 2 ]; then
+    PUSH_REMOTE_REFS="refs/for/master"
+elif [ $# -eq 3 ]; then
+    PUSH_REMOTE_REFS="refs/for/${TARGET_REMOTE_BRUNCH}"
+elif [ $# -eq 4 ]; then
+    PUSH_REMOTE_REFS="refs/for/${TARGET_REMOTE_BRUNCH}/$4"
+else
+    echo 'usage example:'
+    echo '  git-push-for-review HEAD'
+    echo '    or'
+    echo '  git-push-for-review origin HEAD'
+    echo '    or'
+    echo '  git-push-for-review origin HEAD master'
+    echo '    or'
+    echo '  git-push-for-review origin HEAD master topicname'
+    exit -1
+fi
+
+function run_script
+{
+    ret=
+
+    # プッシュする
+    git push ${TARGET_REMOTE} ${TARGET_COMMIT}:${PUSH_REMOTE_REFS}
+    ret=$?
+
+    return $ret
+}
+
+run_script
+ret=$?
+
+exit $ret

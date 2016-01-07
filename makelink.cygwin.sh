@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cd `dirname $0`
+cd $(dirname $0)
 
 echo "このスクリプトはホームディレクトリにシンボリックリンクを貼ります。"
 echo -n "実行しますか?[y/n]:"
@@ -15,21 +15,23 @@ if [ ! $ANS -o $ANS != 'y' -a $ANS != 'yes' ]; then
 	exit 0
 fi
 
-source ./automakelink_common.sh
+source ./makelink.common.sh
 
-dotfiles=`dot_files`
-directories=`dot_directories`
+dotfiles=$(dot_files)
+directories=$(dot_directories)
 
 echo "以下のファイルとディレクトリをHOME以下にリンクします"
 
+target_dir=`cygpath -w $HOME`
+
 for arg in $dotfiles
 do
-	echo "$HOME $arg"
+	echo "$target_dir $arg"
 done
 
 for arg in $directories
 do
-	echo "$HOME $arg"
+	echo "$target_dir $arg"
 done
 
 echo -n "OK?[y/n]:"
@@ -46,11 +48,11 @@ fi
 
 for arg in $dotfiles
 do
-	cmd //c makelink.bat "$HOME" "$arg"
+	cmd /c makelink.bat "$target_dir" "$arg"
 done
 
 for arg in $directories
 do
 	arg=`echo $arg | sed -e 's/\///g'`
-	cmd //c makelink.bat "$HOME" "$arg" //D
+	cmd /c makelink.bat "$target_dir" "$arg" /D
 done

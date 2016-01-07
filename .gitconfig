@@ -1,15 +1,66 @@
-[user]
-	name = Hayato Yoneda
-	email = mc.walnut.04@gmail.com
+[include]
+  path = ~/.gitconfig.local
+[color]
+  ui = auto
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  grep = auto
 [core]
-	autocrlf = false
-	editor = vim
+  pager = less -q -R
+  editor = vim
+  excludesfile = ~/.gitignore
+  excludesfile = ~/dotfiles/.gitignore
+  autocrlf = false
+  safecrlf = true
+  quotepath = off
+  preloadindex = true
+  fscache = true
+[merge]
+  keepBackup = false
+  tool = vimdiff
+  ff = only
+[pull]
+  rebase = true
+[mergetool]
+  keepBackup = false
+  keepTemporaries = false
+  trustExitCode = false
+  keepBackup = false
+[i18n]
+  filesEncoding = utf-8
 [alias]
-	st = status
-	co = checkout
-	df = diff
-	ds = diff --staged
-	ci = commit
-	ci-amend = commit --amend
-	ci-amend-no-edit = commit --amend --no-edit
-	graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+  alias = "!if test -z $1; then loop=; for k in `git config --get-regexp ^alias\\. | sort | sed -e 's/^alias\\.\\(\\S*\\).*/\\1/g'`; do echo -n $k; loop=${loop}1; if test ${#loop} -lt 5; then echo -n '\t'; else echo; loop=; fi; done; exit; fi; git config --list | grep ^alias\\.$1= | sed -e s/^alias\\.//; exit;"
+  co = checkout
+  ci = commit
+  cim = commit -m
+  ci-amend = commit --amend
+  ci-amend-no-edit = commit --amend --no-edit
+  br = branch
+  st = status
+  stt = status -uno
+  sh = show --color
+  shs = show --color --stat
+  df = diff --color
+  ds = diff --staged --color
+  fe = fetch
+  pr = pull --rebase
+  re = rebase
+  reh = reset --hard
+  res = reset --soft
+  dir = rev-parse --show-cdup
+  graph = log --graph --date=short --decorate=short --pretty=format:'%Cgreen%h %Creset%cd %Cblue%cn %Cred%d %Creset%s'
+  tree = log --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit --date=relative
+  tp = !git tree $(git parent)~1..HEAD
+  today = !git tree --since='12 hour ago' --author=${USER}
+  hash = log --pretty=format:\"%h\" --reverse
+  update = !sh -c 'git fe origin && git co $1 && git reset --keep origin/$1' $*
+  topic = !sh -c 'git co -b $1 master' dummy
+  topic-newest = !sh -c 'git update-master && git topic $1' dummy
+  current-branch = rev-parse --abbrev-ref HEAD
+  pfr = push-for-review
+  delete-merged-branches = !git branch --merged | grep -v master | grep -v release | grep -v client | grep -v \\* | xargs git branch -d
+  rebase-origin-master = rebase origin/master
+  set-upstream = !sh -c 'CURRENT_BRANCH=$(git current-branch) && echo remote=$2 && echo set-upstream-to=$1 && git config --local branch.${CURRENT_BRANCH}.remote $2 && git config --local branch.${CURRENT_BRANCH}.merge refs/heads/$1' $*
+  get-upstream = !sh -c 'CURRENT_BRANCH=$(git current-branch) && echo remote=$(git config --local branch.${CURRENT_BRANCH}.remote) && echo set-upstream-to=$(git config --local branch.${CURRENT_BRANCH}.merge)'

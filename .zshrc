@@ -1,77 +1,45 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/dotfiles/oh-my-zsh
+[ ! -f ~/.zplug/zplug ] && curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="wedisagree-user"
+source ~/.zplug/zplug
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+zplug "mollifier/cd-gitroot"
+zplug "mollifier/cd-bookmark"
+#zplug "b4b4r07/enhancd", of:enhancd.sh
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+zplug "zsh-users/zsh-syntax-highlighting", of:"zsh-syntax-highlighting.zsh", nice:10
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Make sure you use double quotes
+zplug "zsh-users/zsh-history-substring-search"
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+zplug "zsh-users/zsh-completions"
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+if [ -z $CYGWIN ]; then
+    # Grab binaries from GitHub Releases
+    # and rename to use "file:" tag
+    zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+    zplug "junegunn/fzf", as:command, of:bin/fzf-tmux
+fi
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+#zplug "peco/peco", as:command, from:gh-r, of:"*amd64*"
 
-# Uncomment the following line to disable command auto-correction.
-# DISABLE_CORRECTION="true"
+# Support oh-my-zsh plugins and the like
+zplug "plugins/git", from:oh-my-zsh, if:"which git"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+# Load theme
+zplug "~/.themes", of:"wedisagree.zsh-theme", from:local
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+# Can manage local plugins
+zplug "~/.zsh", from:local
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+# check コマンドで未インストール項目があるかどうか verbose にチェックし
+# false のとき（つまり未インストール項目がある）y/N プロンプトで
+# インストールする
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/dotfiles/oh-my-zsh.user
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# 自分の.zshrcを有効にする
-source $HOME/dotfiles/.zshrc.mine
+# プラグインを読み込み、コマンドにパスを通す
+zplug load --verbose

@@ -21,10 +21,6 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -f "${HOME}/.dev_profile" ] ; then
-	source "${HOME}/.dev_profile"
-fi
-
 if [ -f "${HOME}/.profile.local" ] ; then
 	source "${HOME}/.profile.local"
 fi
@@ -37,4 +33,3 @@ if [ -d "${HOME}/.gitscripts" ] ; then
     export PATH=${HOME}/.gitscripts:$PATH
 fi
 
-alias vi='vim'

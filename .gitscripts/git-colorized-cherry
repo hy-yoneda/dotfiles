@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git cherry -v "$@" | awk '{ if($1 == "+"){ color = "green" } if($1 == "-"){ color = "red" } cmd = "git show --date=short --no-notes --pretty=format:\"%C" color $1 " %h %Cgreen%cd %C\(bold blue\)%an%x09%Creset%s\" --summary " $2; cmd | getline t; close(cmd); print t }' ;

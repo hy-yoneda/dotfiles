@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+COMMIT_HASH='HEAD'
+PARENT_REFS=''
+
+if [ $# -eq 1 ]; then
+    COMMIT_HASH=$1
+fi
+
+remote=$(git get-upstream | sed -n '1p' | cut -d '=' -f2)
+branch=$(git get-upstream | sed -n '2p' | cut -d '=' -f2 | cut -d '/' -f3)
+parent_refs=${remote}/${branch}
+
+echo ${parent_refs}

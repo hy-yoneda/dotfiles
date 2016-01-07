@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    user=`git config user.name`
+    BASE_COMMIT=`git show-branch --merge-base origin/master origin/client` && ( (git log ${BASE_COMMIT}..origin/master --author="$user" | grep Change-Id: | cut -d" " -f6) && (git log ${BASE_COMMIT}..origin/client --author="${user}" | grep Change-Id: | cut -d" " -f6) ) | sort | uniq -u | xargs --replace=KEY git log ${BASE_COMMIT}..origin/master --date=iso --pretty="%Cgreen%cd %Cred%h %C(bold blue)%an%x09%Creset%s" --grep KEY | sort
+else
+    BASE_COMMIT=`git show-branch --merge-base origin/master origin/client` && ( (git log ${BASE_COMMIT}..origin/master "$@" | grep Change-Id: | cut -d" " -f6) && (git log ${BASE_COMMIT}..origin/client "$@" | grep Change-Id: | cut -d" " -f6) ) | sort | uniq -u | xargs --replace=KEY git log ${BASE_COMMIT}..origin/master --date=iso --pretty="%Cgreen%cd %Cred%h %C(bold blue)%an%x09%Creset%s" --grep KEY | sort
+fi

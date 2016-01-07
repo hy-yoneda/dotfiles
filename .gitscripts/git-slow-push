@@ -1,0 +1,113 @@
+#!/bin/sh
+
+echo "- こんちわ(^^♪"
+
+TARGET_REMOTE='origin'
+TARGET_COMMIT='HEAD'
+TARGET_REMOTE_BRUNCH='master'
+PUSH_REMOTE_REFS=''
+
+TARGET_REMOTE=$1
+TARGET_COMMIT=$2
+TARGET_REMOTE_BRUNCH=$3
+
+LIST_TMP_FILE='/tmp/GIT_SLOW_PUSHMSG'
+
+if [ $# -eq 3 ]; then
+    PUSH_REMOTE_REFS="refs/for/${TARGET_REMOTE_BRUNCH}"
+elif [ $# -eq 4 ]; then
+    PUSH_REMOTE_REFS="refs/for/${TARGET_REMOTE_BRUNCH}/$4"
+else
+    echo 'usage example:'
+    echo '  git-slow-push origin HEAD master'
+    echo '    or'
+    echo '  git-slow-push origin HEAD master topicname'
+    exit -1
+fi
+
+ORG_IFS=$IFS
+IFS=$'\n'
+    
+function edit_push_list
+{
+    CREATE_TIME=`date -r ${LIST_TMP_FILE} +%s`
+    if [ -n $GIT_EDITOR ]; then
+        $GIT_EDITOR ${LIST_TMP_FILE}
+    else
+        vim ${LIST_TMP_FILE}
+    fi
+    MODIFY_TIME=`date -r ${LIST_TMP_FILE} +%s`
+  
+    if [ $CREATE_TIME -eq $MODIFY_TIME ]; then
+        return 100
+    fi
+
+    return 0
+}
+
+function run_script
+{
+    ret=
+
+    # コミット情報の取得
+    BASE_COMMIT=`git show-branch --merge-base ${TARGET_REMOTE}/${TARGET_REMOTE_BRUNCH} ${TARGET_COMMIT}`;
+    #BASE_TO_HEAD_COMMIT_HASH_LIST=`git log ${BASE_COMMIT}..${TARGET_COMMIT} --pretty=format:%H --reverse`;
+    BASE_TO_HEAD_COMMIT_NAME_LIST=`git log ${BASE_COMMIT}..${TARGET_COMMIT} --pretty=format:'%h -%d %s <%an>' --reverse`;
+    
+    ret=$?
+    if [ $ret != 0 ]; then
+        echo "Failed"
+        return $ret
+    fi
+    
+    rm -f ${LIST_TMP_FILE}
+    ret=$?
+    if [ $ret != 0 ]; then
+        echo "${LIST_TMP_FILE} is locked"
+        return $ret
+    fi
+
+    echo "# 要らないコミットは行ごと削除して下さい" >> ${LIST_TMP_FILE}
+    for commit_name in ${BASE_TO_HEAD_COMMIT_NAME_LIST}; do
+        echo "${commit_name}"
+    done >> ${LIST_TMP_FILE}
+    
+    # プッシュリストを編集する
+    edit_push_list
+    ret=$?
+    if [ $ret != 0 ]; then
+        echo "Aborted"
+        return $ret
+    fi
+    
+    PUSH_LIST=`cat ${LIST_TMP_FILE} | grep -v "^#"`
+
+    echo ">> oldest"
+    for commit_name in ${PUSH_LIST}; do
+        echo "${commit_name}"
+    done
+    echo ">> latest"
+    
+    echo -n "- これらのコミットをプッシュしますか？ [y/n]: "
+    read ANS
+    
+    if [ $ANS = 'y' -o $ANS = 'yes' ]; then
+        # プッシュする
+        echo '- ゆっくりしていってね！！！'
+        
+        for commit_line in ${PUSH_LIST}; do
+            commit_hash=`echo ${commit_line} | sed -e 's/\(.*\)\( \- \).*/\1/'`
+            git push ${TARGET_REMOTE} ${commit_hash}:${PUSH_REMOTE_REFS}
+        done
+    fi
+
+    return 0
+}
+
+run_script
+ret=$?
+
+IFS=$ORG_IFS
+
+echo "Done"
+exit $ret

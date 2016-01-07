@@ -17,8 +17,8 @@ puts "exit."
 exit 0
 end
 
-dotfiles = `sh ./automakelink_common.sh dot-files`.split(" ")
-directories = `sh ./automakelink_common.sh dot-directories`.split(" ")
+dotfiles = `sh ./makelink.common.sh dot-files`.split(" ")
+directories = `sh ./makelink.common.sh dot-directories`.split(" ")
 targets = dotfiles + directories
 
 print "以下のファイルとディレクトリをHOME以下にリンクします\n\n"

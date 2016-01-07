@@ -1,7 +1,7 @@
 " --------------------------------------------------------------------------------------------------------
 " - * File: .vimrc
 " - * Author: itchyny
-" - * Last Change: 2015/09/21 13:07:42.
+" - * Last Change: 2016/01/08 10:18:08.
 " --------------------------------------------------------------------------------------------------------
 
 " INITIALIZE {{{
@@ -443,6 +443,7 @@ if exists('&clipboard')
   if has('unnamedplus') | set clipboard+=unnamedplus | endif
 endif
 set swapfile nobackup updatetime=300 timeoutlen=500 ttyfast vb t_vb= wildignore+=*.sw?,*.bak,*.?~,*.??~,*.???~,*.~ wildmode=list:longest
+set noundofile
 
 " Maximize the window
 if s:iswin
