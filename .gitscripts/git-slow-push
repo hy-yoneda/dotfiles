@@ -32,7 +32,7 @@ function edit_push_list
 {
     CREATE_TIME=`date -r ${LIST_TMP_FILE} +%s`
     if [ -n $GIT_EDITOR ]; then
-        $GIT_EDITOR ${LIST_TMP_FILE}
+        sh -c "$GIT_EDITOR ${LIST_TMP_FILE}"
     else
         vim ${LIST_TMP_FILE}
     fi
