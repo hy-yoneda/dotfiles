@@ -9,7 +9,6 @@
   grep = auto
 [core]
   pager = less -q -R
-  editor = vim
   excludesfile = ~/.gitignore
   excludesfile = ~/dotfiles/.gitignore
   autocrlf = false
