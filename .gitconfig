@@ -16,10 +16,11 @@
   quotepath = off
   preloadindex = true
   fscache = true
+[diff]
+  guitool = p4merge
 [merge]
+  guitool = p4merge
   keepBackup = false
-  tool = vimdiff
-  ff = only
 [pull]
   rebase = true
 [mergetool]
