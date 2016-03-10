@@ -7,5 +7,5 @@ alias df="df -h"
 alias du="du -h"
 alias screen='screen -U'
 alias h='history'
-alias less='/bin/less -r'
+alias less="$(which less) -r"
 alias gdir='GDIR=$(git dir) && cd ${GDIR}'
