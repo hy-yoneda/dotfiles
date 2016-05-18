@@ -15,8 +15,8 @@ zplug "zsh-users/zsh-completions"
 
 if [ -z $CYGWIN ]; then
     # Grab binaries from GitHub Releases
-    # and rename to use "file:" tag
-    zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
+    # and rename to use "rename-to:" tag
+    zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
     zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 
     # Group dependencies. Load emoji-cli if jq is installed in this example
@@ -27,7 +27,7 @@ fi
 #zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
 # Support oh-my-zsh plugins and the like
-zplug "plugins/git", from:oh-my-zsh, if:"which git"
+zplug "plugins/git", from:oh-my-zsh, if:"which git", nice:10
 
 # Load theme
 zplug "~/.themes", use:"wedisagree.zsh-theme", from:local
