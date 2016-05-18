@@ -1,6 +1,6 @@
-[ ! -f ~/.zplug/zplug ] && git clone https://github.com/b4b4r07/zplug ~/.zplug
+[ ! -d ~/.zplug ] && curl -sL get.zplug.sh | zsh
 
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
 
 zplug "mollifier/cd-gitroot"
 zplug "mollifier/cd-bookmark"
@@ -18,6 +18,10 @@ if [ -z $CYGWIN ]; then
     # and rename to use "file:" tag
     zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf
     zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+
+    # Group dependencies. Load emoji-cli if jq is installed in this example
+    zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
+    zplug "b4b4r07/emoji-cli", on:"stedolan/jq"
 fi
 
 #zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
