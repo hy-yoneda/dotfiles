@@ -2,8 +2,8 @@
 
 source ~/.zplug/init.zsh
 
-zplug "mollifier/cd-gitroot"
-zplug "mollifier/cd-bookmark"
+zplug "mollifier/cd-gitroot", as:command
+zplug "mollifier/cd-bookmark", as:command
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
 zplug "zsh-users/zsh-syntax-highlighting", use:"zsh-syntax-highlighting.zsh", nice:10
@@ -47,3 +47,5 @@ fi
 
 # プラグインを読み込み、コマンドにパスを通す
 zplug load --verbose
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
