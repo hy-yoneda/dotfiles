@@ -6,7 +6,7 @@ zplug "mollifier/cd-gitroot", as:command
 zplug "mollifier/cd-bookmark", as:command
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
-zplug "zsh-users/zaw"
+zplug "zsh-users/zaw", use:"zaw.zsh"
 zplug "zsh-users/zsh-syntax-highlighting", use:"zsh-syntax-highlighting.zsh", on:"zsh-users/zaw", nice:10
 
 # Make sure you use double quotes
