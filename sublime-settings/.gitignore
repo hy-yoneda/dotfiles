@@ -1,0 +1,10 @@
+# ignore all
+*
+*/
+
+# allow any
+!*.sublime-settings
+!*.sublime-keymap
+!*.tmTheme
+
+Evernote.sublime-settings
