@@ -1,0 +1,6 @@
+#!/bin/bash
+
+develop_path=$1
+release_path=`echo $develop_path | sed -e "s/develop/release/"`
+echo $develop_path $release_path
+cp $develop_path $release_path
