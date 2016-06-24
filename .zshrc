@@ -2,11 +2,12 @@
 
 source ~/.zplug/init.zsh
 
-zplug "mollifier/cd-gitroot", as:command
-zplug "mollifier/cd-bookmark", as:command
+zplug "mollifier/cd-gitroot"
+zplug "mollifier/cd-bookmark"
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
-zplug "zsh-users/zsh-syntax-highlighting", use:"zsh-syntax-highlighting.zsh", nice:10
+zplug "zsh-users/zaw"
+zplug "zsh-users/zsh-syntax-highlighting", use:"zsh-syntax-highlighting.zsh", on:"zsh-users/zaw", nice:10
 
 # Make sure you use double quotes
 zplug "zsh-users/zsh-history-substring-search"
