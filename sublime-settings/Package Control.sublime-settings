@@ -29,7 +29,6 @@
 		"Gitignore",
 		"GLSL Validator",
 		"HexViewer",
-		"IMESupport",
 		"Japanize",
 		"JsonTree",
 		"Keymaps",
@@ -62,6 +61,6 @@
 		"Tag",
 		"Theme - Spacegray",
 		"TrailingSpaces",
-		"Unity C# Snippets"
+		"Unity3D"
 	]
 }
