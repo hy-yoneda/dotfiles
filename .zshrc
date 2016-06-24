@@ -2,8 +2,8 @@
 
 source ~/.zplug/init.zsh
 
-zplug "mollifier/cd-gitroot"
-zplug "mollifier/cd-bookmark"
+zplug "mollifier/cd-gitroot", as:command
+zplug "mollifier/cd-bookmark", as:command
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
 zplug "zsh-users/zaw"
@@ -14,16 +14,14 @@ zplug "zsh-users/zsh-history-substring-search"
 
 zplug "zsh-users/zsh-completions"
 
-if [ -z $CYGWIN ]; then
-    # Grab binaries from GitHub Releases
-    # and rename to use "rename-to:" tag
-    zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
-    zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+# Grab binaries from GitHub Releases
+# and rename to use "rename-to:" tag
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[ -z $CYGWIN ]"
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux, if:"[ -z $CYGWIN ]"
 
-    # Group dependencies. Load emoji-cli if jq is installed in this example
-    zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
-    zplug "b4b4r07/emoji-cli", on:"stedolan/jq"
-fi
+# Group dependencies. Load emoji-cli if jq is installed in this example
+zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq, if:"[ -z $CYGWIN ]"
+zplug "b4b4r07/emoji-cli", on:"stedolan/jq", if:"[ -z $CYGWIN ]"
 
 #zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
