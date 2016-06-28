@@ -2,8 +2,8 @@
 
 source ~/.zplug/init.zsh
 
-zplug "mollifier/cd-gitroot", as:command
-zplug "mollifier/cd-bookmark", as:command
+zplug "mollifier/cd-gitroot"
+zplug "mollifier/cd-bookmark"
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
 zplug "zsh-users/zaw", use:"zaw.zsh"
