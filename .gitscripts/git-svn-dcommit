@@ -1,0 +1,5 @@
+#!/bin/sh -xe
+
+git stash
+git svn dcommit $*
+git stash pop
