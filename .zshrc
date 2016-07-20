@@ -1,4 +1,4 @@
-[ ! -d ~/.zplug ] && curl -sL get.zplug.sh | zsh
+[ ! -d ~/.zplug ] && curl -sL zplug.sh/installer | zsh
 
 source ~/.zplug/init.zsh
 

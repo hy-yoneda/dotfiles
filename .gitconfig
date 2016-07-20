@@ -11,6 +11,7 @@
   pager = less -q -R
   excludesfile = ~/.gitignore
   excludesfile = ~/dotfiles/.gitignore
+  excludesfile = ~/.gitignore.local
   autocrlf = false
   safecrlf = true
   quotepath = off
