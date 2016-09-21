@@ -2,6 +2,12 @@
 
 source ~/.zplug/init.zsh
 
+case "$OSTYPE" in
+    cygwin ) env_os=windows ;;
+    msys ) env_os=windows ;;
+    * ) env_os=$OSTYPE ;;
+esac
+
 zplug "mollifier/cd-gitroot"
 zplug "mollifier/cd-bookmark"
 #zplug "b4b4r07/enhancd", use:enhancd.sh
@@ -16,12 +22,12 @@ zplug "zsh-users/zsh-completions"
 
 # Grab binaries from GitHub Releases
 # and rename to use "rename-to:" tag
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[ $OSTYPE != cygwin ]]"
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux, if:"[[ $OSTYPE != cygwin ]]"
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[ $env_os != windows ]]"
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux, if:"[[ $env_os != windows ]]"
 
 # Group dependencies. Load emoji-cli if jq is installed in this example
-zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq, if:"[[ $OSTYPE != cygwin ]]"
-zplug "b4b4r07/emoji-cli", on:"stedolan/jq", if:"[[ $OSTYPE != cygwin ]]"
+zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq, if:"[[ $env_os != windows ]]"
+zplug "b4b4r07/emoji-cli", on:"stedolan/jq", if:"[[ $env_os != windows ]]"
 
 #zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
