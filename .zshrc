@@ -12,13 +12,11 @@ zplug "mollifier/cd-gitroot"
 zplug "mollifier/cd-bookmark"
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
-zplug "zsh-users/zaw", as:command, use:"zaw.zsh"
-zplug "zsh-users/zsh-syntax-highlighting", use:"zsh-syntax-highlighting.zsh", on:"zsh-users/zaw", nice:10
-
-# Make sure you use double quotes
 zplug "zsh-users/zsh-history-substring-search"
-
+zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zaw", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", nice:10
 
 # Grab binaries from GitHub Releases
 # and rename to use "rename-to:" tag
