@@ -13,7 +13,7 @@ zplug "mollifier/cd-bookmark"
 #zplug "b4b4r07/enhancd", use:enhancd.sh
 
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-autosuggestions", if:"[ $env_os != windows]]"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zaw", nice:10
 zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", nice:10
