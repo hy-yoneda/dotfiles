@@ -54,3 +54,4 @@ fi
 zplug load --verbose
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=15"
