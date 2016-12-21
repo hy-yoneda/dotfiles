@@ -1,6 +1,15 @@
 #!/bin/bash
 
 develop_path=$1
-release_path=`echo $develop_path | sed -e "s/develop/release/"`
+release_path=$(echo $develop_path | sed -e "s/develop/release/")
 echo $develop_path $release_path
-cp $develop_path $release_path
+dirpath="$(dirname $release_path)"
+if [ ! -d ${dirpath} ]; then
+    mkdir -p ${dirpath}
+fi
+
+if [ -d ${develop_path} ]; then
+    cp -r $develop_path $release_path
+else
+    cp $develop_path $release_path
+fi

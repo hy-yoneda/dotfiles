@@ -16,6 +16,11 @@ enum_server () {
     for i in $(seq $1); do for j in $(seq -w $2); do echo ${i}${j}; done; done
 }
 
+# make and cd
+mkcd () {
+    mkdir -p $1 && cd $1
+}
+
 # tmux
 tmux() {
     local tmux_cmd

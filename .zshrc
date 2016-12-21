@@ -10,13 +10,15 @@ esac
 
 zplug "mollifier/cd-gitroot"
 zplug "mollifier/cd-bookmark"
-#zplug "b4b4r07/enhancd", use:enhancd.sh
+
+zplug "b4b4r07/enhancd", use:enhancd.sh
+zplug "mollifier/anyframe"
 
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions", if:"[ $env_os != windows]]"
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zaw", nice:10
-zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", nice:10
+#zplug "zsh-users/zaw", use:"zsh-users/zaw.zsh", defer:3
+zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", defer:3
 
 # Grab binaries from GitHub Releases
 # and rename to use "rename-to:" tag
@@ -30,7 +32,7 @@ zplug "b4b4r07/emoji-cli", on:"stedolan/jq", if:"[[ $env_os != windows ]]"
 #zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 
 # Support oh-my-zsh plugins and the like
-#zplug "plugins/git", from:oh-my-zsh, if:"which git", nice:10
+#zplug "plugins/git", from:oh-my-zsh, if:"which git", defer:3
 
 # Load theme
 zplug "~/.themes", use:"wedisagree.zsh-theme", from:local
