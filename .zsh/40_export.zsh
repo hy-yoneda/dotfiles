@@ -6,4 +6,6 @@ export PATH=~/bin:~/usr/bin:~/usr/local/bin:/usr/local/bin:$PATH
 
 export PATH=$PATH:$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
 
-[[ -n $TMUX ]] && export TERM="xterm-256color"
+if [[ -n $TMUX ]]; then
+    export TERM="xterm-256color"
+fi

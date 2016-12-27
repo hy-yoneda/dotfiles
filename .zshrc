@@ -15,14 +15,14 @@ zplug "b4b4r07/enhancd", use:enhancd.sh
 zplug "mollifier/anyframe"
 
 zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions", if:"[ $env_os != windows]]"
+zplug "zsh-users/zsh-autosuggestions", if:"[[ $env_os != windows ]]"
 zplug "zsh-users/zsh-completions"
-#zplug "zsh-users/zaw", use:"zsh-users/zaw.zsh", defer:3
+zplug "zsh-users/zaw", use:"zsh-users/zaw.zsh", defer:3
 zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", defer:3
 
 # Grab binaries from GitHub Releases
 # and rename to use "rename-to:" tag
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[ $env_os != windows ]]"
+zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[[ $env_os != windows ]]"
 zplug "junegunn/fzf", as:command, use:bin/fzf-tmux, if:"[[ $env_os != windows ]]"
 
 # Group dependencies. Load emoji-cli if jq is installed in this example
@@ -53,7 +53,7 @@ if [ -z $TMUX ]; then
 fi
 
 # プラグインを読み込み、コマンドにパスを通す
-zplug load --verbose
+zplug load
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=15"
