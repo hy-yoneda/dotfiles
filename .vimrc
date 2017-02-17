@@ -1,7 +1,7 @@
 " --------------------------------------------------------------------------------------------------------
 " - * File: .vimrc
 " - * Author: itchyny
-" - * Last Change: 2016/01/08 10:18:08.
+" - * Last Change: 2017/02/17 13:00:23.
 " --------------------------------------------------------------------------------------------------------
 
 " INITIALIZE {{{
@@ -16,6 +16,9 @@ let $VIM = expand('~/.vim')
 let $CACHE = $VIM.'/.cache'
 let $BUNDLE = $VIM.'/bundle'
 let s:neobundle_dir = $BUNDLE.'/neobundle.vim'
+if !isdirectory($CACHE.'/ctrlp/mru')
+  exec '!mkdir -p '.$CACHE.'/ctrlp/mru && touch cache.txt'
+endif
 augroup Vimrc
   autocmd!
 augroup END
@@ -476,9 +479,12 @@ endfor
 
 " Filetype
 let s:filetypes1 = map(split('bf,gnuplot,jade,json,less,r,roy,tex,meissa,coffee,stl', ','), '[v:val, v:val]')
-let s:filetypes2 = map(split('cls;tex,hs;haskell,hx;haxe,md;markdown,cir;spice,asc;spice,m;objc', ','), 'split(v:val, ";")')
-for [s:ex, s:ft] in extend(s:filetypes1, s:filetypes2)
+let s:filetypes2 = map(split('*.cls;tex,*.hs;haskell,*.hx;haxe,*.md;markdown,*.cir;spice,*.asc;spice,*.m;objc,Jenkinsfile;groovy', ','), 'split(v:val, ";")')
+for [s:ex, s:ft] in s:filetypes1
   execute 'autocmd Vimrc BufNewFile,BufReadPost *.' . s:ex . ' setlocal filetype=' . s:ft
+endfor
+for [s:ex, s:ft] in s:filetypes2
+  execute 'autocmd Vimrc BufNewFile,BufReadPost ' . s:ex . ' setlocal filetype=' . s:ft
 endfor
 autocmd Vimrc CursorHold,CursorHoldI * call s:auto_filetype()
 function! s:auto_filetype()
