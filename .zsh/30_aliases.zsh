@@ -6,6 +6,7 @@ alias screen='screen -U'
 alias h='history'
 alias less="$(which less) -r"
 alias gdir='GDIR=$(git dir) && cd ${GDIR}'
+alias gcb='git cb'
 
 case "${OSTYPE}" in
     darwin*)
