@@ -24,7 +24,7 @@ mkcd () {
 # tmux
 tmux() {
     local which_cmd
-    if ! which_cmd=$(which gwhich > /dev/null 2>&1); then
+    if ! which_cmd=$(which gwhich); then
         which_cmd=which
     fi
 
