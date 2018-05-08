@@ -23,13 +23,8 @@ mkcd () {
 
 # tmux
 tmux() {
-    local which_cmd
-    if ! which_cmd=$(which gwhich); then
-        which_cmd=which
-    fi
-
     local tmux_cmd
-    if ! tmux_cmd=$(eval "$which_cmd --skip-functions tmux"); then
+    if ! tmux_cmd=$(where tmux | grep -E "^/.*/bin/tmux$" | head -n1); then
         echo "error: tmux not installed" >&2
         return 1
     fi
