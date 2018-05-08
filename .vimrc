@@ -1,7 +1,7 @@
 " --------------------------------------------------------------------------------------------------------
 " - * File: .vimrc
 " - * Author: itchyny
-" - * Last Change: 2017/05/22 15:42:25.
+" - * Last Change: 2018/05/08 10:28:51.
 " --------------------------------------------------------------------------------------------------------
 
 " INITIALIZE {{{
@@ -425,8 +425,13 @@ set number cursorline nocursorcolumn
   autocmd Vimrc FileType vimshell,vimcalc,quickrun setlocal nonumber
   autocmd Vimrc FileType vimcalc,vimshell,quickrun,cam setlocal nocursorline
           \ | autocmd Vimrc BufEnter,WinEnter <buffer> setlocal nocursorline
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]1337;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]1337;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]1337;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]1337;CursorShape=0\x7"
+endif
 set showmatch noshowmode shortmess+=I pumheight=10 completeopt-=preview autoread
 set history=1000 viminfo='10,/10,:500,<10,@10,s10,n$CACHE/.viminfo directory=$CACHE/.swp,$CACHE,/tmp,. spellfile=$CACHE/.spellfile.add
 set nospell
