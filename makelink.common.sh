@@ -1,7 +1,7 @@
 #!/bin/sh
 
 dot_files() {
-    find . -maxdepth 1 -type f -name ".*" ! -name "." ! -name ".gitmodules" | sed 's!^./!!'
+    find . -maxdepth 1 -type f -name ".*" ! -name "." ! -name ".gitmodules" ! -name ".DS_Store" | sed 's!^./!!'
 }
 
 dot_directories() {
