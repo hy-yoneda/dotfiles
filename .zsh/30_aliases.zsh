@@ -10,7 +10,7 @@ alias gcb='git cb'
 
 case "${OSTYPE}" in
     darwin*)
-        if ${ENABLE_LS_COLOR}; then
+        if [ -n "${ENABLE_LS_COLOR}" ] && ${ENABLE_LS_COLOR}; then
             alias ll='ls -lF --color'
             alias la='ls -laF --color'
             alias ls='ls -AF --color'
