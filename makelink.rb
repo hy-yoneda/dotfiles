@@ -34,14 +34,21 @@ puts "exit."
 exit 0
 end
 
+backup_directory = File.expand_path("~/dotfiles_backup_#{Time.now.strftime("%Y%m%d")}")
 targets.each do |fd|
-begin
-c = File.symlink(File.expand_path(fd.chomp),File.expand_path("~/#{fd.chomp}"))
-rescue Errno::EEXIST => e
-                puts "#{fd.chomp} is already exists. [SKIP]"
-next
-end
-puts "Create #{fd} " if c == 0
+  dst_path = File.expand_path("~/#{fd.chomp}")
+  if File.exist?(dst_path) and ! File.symlink?(dst_path) then
+    Dir.mkdir(backup_directory) unless File.exists?(backup_directory)
+    File.rename(dst_path, "#{backup_directory}/#{fd.chomp}")
+    puts "既存のファイル: ~/#{fd.chomp} を #{backup_directory}/#{fd.chomp}に移しました"
+  end
+  begin
+    c = File.symlink(File.expand_path(fd.chomp),dst_path)
+  rescue Errno::EEXIST => e
+    puts "#{fd.chomp} is already exists. [SKIP]"
+  next
+  end
+  puts "Create #{fd} " if c == 0
 end
 
 puts "Finished."
