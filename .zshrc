@@ -1,6 +1,18 @@
-[ ! -d ~/.zplug ] && curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+if [ ! -d ~/.zinit ]; then
+    curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh | zsh
+    #curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
 
-source ~/.zplug/init.zsh
+if [[ -z "$TMUX" ]] && [[ -z "$STY" ]]
+then
+  # tmux が起動していなければ起動します。
+  . "${HOME}/.zsh/rc/exports.rc.zsh"
+fi
+
+source ~/.zinit/bin/zinit.zsh
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 case "$OSTYPE" in
     cygwin ) env_os=windows ;;
@@ -8,52 +20,36 @@ case "$OSTYPE" in
     * ) env_os=$OSTYPE ;;
 esac
 
-zplug "mollifier/cd-gitroot"
-zplug "mollifier/cd-bookmark"
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=15"
 
-zplug "b4b4r07/enhancd", use:enhancd.sh
-zplug "mollifier/anyframe"
-
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions", if:"[[ $env_os != windows ]]"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zaw", use:"zsh-users/zaw.zsh", defer:3
-zplug "zsh-users/zsh-syntax-highlighting", on:"zsh-users/zaw", defer:3
-
-# Grab binaries from GitHub Releases
-# and rename to use "rename-to:" tag
-zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf, if:"[[ $env_os != windows ]]"
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux, if:"[[ $env_os != windows ]]"
-
-# Group dependencies. Load emoji-cli if jq is installed in this example
-zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq, if:"[[ $env_os != windows ]]"
-zplug "b4b4r07/emoji-cli", on:"stedolan/jq", if:"[[ $env_os != windows ]]"
-
-#zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
-
-# Support oh-my-zsh plugins and the like
-#zplug "plugins/git", from:oh-my-zsh, if:"which git", defer:3
-
-# Load theme
-zplug "~/.themes", use:"wedisagree.zsh-theme", from:local
+zinit wait lucid for \
+    is-snippet "OMZ::lib/clipboard.zsh" \
+    is-snippet "OMZ::plugins/git/git.plugin.zsh" \
+    is-snippet "OMZ::plugins/github/github.plugin.zsh" \
+    is-snippet "OMZ::plugins/gnu-utils/gnu-utils.plugin.zsh" \
+    is-snippet "OMZ::plugins/zsh_reload/zsh_reload.plugin.zsh"
 
 # Can manage local plugins
-zplug "~/.zsh", from:local
+zpl ice atinit'local i; for i in *.zsh; do source $i; done'
+zinit light "${HOME}/.zsh"
 
-# check コマンドで未インストール項目があるかどうか verbose にチェックし
-# false のとき（つまり未インストール項目がある）y/N プロンプトで
-# インストールする
-if [ -z $TMUX ]; then
-    if ! zplug check --verbose; then
-        printf "Install? [y/N]: "
-        if read -q; then
-            echo; zplug install
-        fi
-    fi
-fi
+# Load theme
+zinit snippet "${HOME}/.themes/wedisagree.zsh-theme"
 
-# プラグインを読み込み、コマンドにパスを通す
-zplug load
+zinit wait'!0' lucid for \
+    light-mode atclone'rm -rf conf.d; rm -rf functions; rm -f *.fish;' pick'init.sh' nocompile'!' "b4b4r07/enhancd" \
+               "zdharma/history-search-multi-word"
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=15"
+zinit wait lucid for \
+               "mollifier/cd-bookmark" \
+    light-mode "mollifier/cd-gitroot" \
+    light-mode "mollifier/anyframe" \
+    light-mode "b4b4r07/emoji-cli" \
+    light-mode "djui/alias-tips" \
+    light-mode pick'k.sh'"supercrabtree/k" \
+               pick'zaw.zsh' "zsh-users/zaw" \
+               from"gh-r" as"program" if"[[ $env_os != windows ]]" "junegunn/fzf-bin" \
+               atinit'ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay' "zdharma/fast-syntax-highlighting" \
+               atload'!_zsh_autosuggest_start' if"[[ $env_os != windows ]]" "zsh-users/zsh-autosuggestions" \
+               blockf "zsh-users/zsh-completions"
+

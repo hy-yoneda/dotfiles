@@ -1,10 +1,3 @@
-## not distinguish between lower case and upper case
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' menu select=1
-fpath=(~/.zsh/completion $fpath)
-
-autoload -U compinit && compinit -u
-
 ## options
 setopt BASH_AUTO_LIST
 setopt LIST_AMBIGUOUS
@@ -49,9 +42,9 @@ bindkey "^H"    backward-delete-char
 bindkey "^[[3~" delete-char
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
-bindkey '^h'    zaw-history
+#bindkey '^h'    zaw-history
 
-tmp_sprompt="%{$fg[red]%}%{$suggest%}(*'~'%)? < もしかして %B%{$fg[yellow]%}%r%b %{$fg[red]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color}"
+tmp_sprompt="%F{red}%{$suggest%}(*'~'%)? < もしかして%f %B%F{yellow}%r%f%b %F{red}かな? [そう!(y), 違う!(n),a,e]:%f${reset_color}"
 SPROMPT=$tmp_sprompt  # スペル訂正用プロンプト
 
 ## for tmux-powerline

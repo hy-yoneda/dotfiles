@@ -21,33 +21,33 @@
 
 # The prompt
 
-PROMPT="%{$fg[cyan]%}%n %(?!%{$fg[green]%}!%{$fg[blue]%})%(?!%B(*'-') >>%b!%B(*;-;%)? >>%b) %{$reset_color%}"
+PROMPT="%F{cyan}%n%f %(?!%B%F{green}(*'-') >>%f%b!%B%F{blue}(*;-;%)? >>%f%b) %{$reset_color%}"
 
 # The right-hand prompt
 
 RPROMPT='%B%F{yellow}[%50<..<%~] %f%b% ${time} %{$reset_color%}'
-#RPROMPT='%B%F{yellow}[%50<..<%~] %f%b% ${time} %{$fg[magenta]%}$(git_prompt_info)%{$reset_color%}$(git_prompt_status)%{$reset_color%}$(git_prompt_ahead)%{$reset_color%}'
+#RPROMPT='%B%F{yellow}[%50<..<%~] %f%b% ${time} %F{magenta}$(git_prompt_info)%f%{$reset_color%}$(git_prompt_status)%{$reset_color%}$(git_prompt_ahead)%{$reset_color%}'
 
 # Add this at the start of RPROMPT to include rvm info showing ruby-version@gemset-name
-# %{$fg[yellow]%}$(~/.rvm/bin/rvm-prompt)%{$reset_color%}
+# %F{yellow}$(~/.rvm/bin/rvm-prompt)%f%{$reset_color%}
 
 # local time, color coded by last return code
-time_enabled="%(?!%{$fg[green]%}!%{$fg[blue]%})%B%*%b%{$reset_color%}"
-time_disabled="%{$fg[green]%}%B%*%b%{$reset_color%}"
+time_enabled="%(?!%F{green}!%F{blue})%B%*%b%f%{$reset_color%}"
+time_disabled="%F{green}%B%*%b%f%{$reset_color%}"
 time=$time_enabled
 
-ZSH_THEME_GIT_PROMPT_PREFIX=" ☁  %{$fg[magenta]%}"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%} ☂ " # Ⓓ
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[cyan]%} ✭ " # ⓣ
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ☀ " # Ⓞ
+ZSH_THEME_GIT_PROMPT_PREFIX=" ☁  %F{magenta}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%f%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DIRTY="%F{yellow} ☂ %f" # Ⓓ
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%F{cyan} ✭ %f" # ⓣ
+ZSH_THEME_GIT_PROMPT_CLEAN="%F{green} ☀ %f" # Ⓞ
 
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[cyan]%} ✚ " # ⓐ ⑃
-ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%} ⚡"  # ⓜ ⑁
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖ " # ⓧ ⑂
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[blue]%} ➜ " # ⓡ ⑄
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[magenta]%} ♒ " # ⓤ ⑊
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%} 𝝙"
+ZSH_THEME_GIT_PROMPT_ADDED="%F{cyan} ✚ %f" # ⓐ ⑃
+ZSH_THEME_GIT_PROMPT_MODIFIED="%F{yellow} ⚡%f"  # ⓜ ⑁
+ZSH_THEME_GIT_PROMPT_DELETED="%F{red} ✖ %f" # ⓧ ⑂
+ZSH_THEME_GIT_PROMPT_RENAMED="%F{blue} ➜ %f" # ⓡ ⑄
+ZSH_THEME_GIT_PROMPT_UNMERGED="%F{magenta} ♒ %f" # ⓤ ⑊
+ZSH_THEME_GIT_PROMPT_AHEAD="%F{blue} 𝝙%f"
 
 # More symbols to choose from:
 # ☀ ✹ ☄ ♆ ♀ ♁ ♐ ♇ ♈ ♉ ♚ ♛ ♜ ♝ ♞ ♟ ♠ ♣ ⚢ ⚲ ⚳ ⚴ ⚥ ⚤ ⚦ ⚒ ⚑ ⚐ ♺ ♻ ♼ ☰ ☱ ☲ ☳ ☴ ☵ ☶ ☷
@@ -58,7 +58,7 @@ ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%} 𝝙"
 function rvm_gemset() {
     GEMSET=`rvm gemset list | grep '=>' | cut -b4-`
     if [[ -n $GEMSET ]]; then
-        echo "%{$fg[yellow]%}$GEMSET%{$reset_color%}|"
+        echo "%F{yellow}$GEMSET%f%{$reset_color%}|"
     fi 
 }
 
