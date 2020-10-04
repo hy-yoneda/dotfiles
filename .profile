@@ -25,6 +25,10 @@ if [ -f "${HOME}/.profile.local" ] ; then
 	source "${HOME}/.profile.local"
 fi
 
+if [ -d "${HOME}/.local/bin" ] ; then
+	export PATH=${HOME}/.local/bin:$PATH
+fi
+
 if [ -d "${HOME}/usr/local/bin" ] ; then
 	export PATH=${HOME}/usr/local/bin:$PATH
 fi
