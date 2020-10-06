@@ -57,6 +57,6 @@
   cb = !git current-branch
   current-branch = rev-parse --abbrev-ref HEAD
   pfr = push-for-review
-  delete-merged-branches = !git branch --merged | grep -v master | grep -v release | grep -v client | grep -v \\* | xargs git branch -d
+  delete-merged-branches = !git branch --merged | grep -v master | grep -v release | grep -v client | grep -v \\* | grep -v \\+ | xargs git branch -d
   set-upstream = !sh -c 'CURRENT_BRANCH=$(git current-branch) && echo remote=$2 && echo set-upstream-to=$1 && git config --local branch.${CURRENT_BRANCH}.remote $2 && git config --local branch.${CURRENT_BRANCH}.merge refs/heads/$1' $*
   get-upstream = !sh -c 'CURRENT_BRANCH=$(git current-branch) && echo remote=$(git config --local branch.${CURRENT_BRANCH}.remote) && echo set-upstream-to=$(git config --local branch.${CURRENT_BRANCH}.merge)'
