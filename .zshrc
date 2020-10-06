@@ -45,7 +45,6 @@ zinit wait lucid for \
     light-mode "mollifier/cd-gitroot" \
     light-mode "mollifier/anyframe" \
     light-mode "b4b4r07/emoji-cli" \
-    light-mode "djui/alias-tips" \
     light-mode pick'k.sh' "supercrabtree/k" \
                pick'zaw.zsh' "zsh-users/zaw" \
                from"gh-r" as"program" if"[[ $env_os != windows ]]" "junegunn/fzf-bin" \
