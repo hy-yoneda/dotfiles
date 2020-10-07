@@ -6,6 +6,9 @@
 if [[ -d "${HOME}/.linuxbrew" ]]
 then
   HOMEBREW_PREFIX="${HOME}/.linuxbrew"
+elif [[ -d "/home/linuxbrew/.linuxbrew" ]]
+then
+  HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
 elif [[ -x '/usr/local/bin/brew' ]]
 then
   HOMEBREW_PREFIX='/usr/local'
